@@ -4,8 +4,12 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
+const port = process.env.PORT || 5001;
 
-app.use(cors());
+if (process.env.NODE_ENV === 'production') {
+  app.use(cors());
+}
+
 app.use(express.json());
 
 app.post('/api/chat', async (req, res) => {
@@ -15,7 +19,7 @@ app.post('/api/chat', async (req, res) => {
     return res.status(400).json({ error: 'Prompt is required' });
   }
 
-  const data = JSON.stringify({
+  var data = JSON.stringify({
     "endpoint": "SS-chat",
     "inputs": {
       "chat_messages": [
@@ -30,7 +34,7 @@ app.post('/api/chat', async (req, res) => {
     }
   });
 
-  const config = {
+  var config = {
     method: 'post',
     url: 'https://api.lmnr.ai/v2/endpoint/run',
     headers: {
@@ -59,5 +63,6 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Export the app as a serverless function
-module.exports = app;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
