@@ -2,18 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 require('dotenv').config();
-const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
-
-// Serve static files from the React app
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'chat-front/build')));
-}
 
 app.post('/api/chat', async (req, res) => {
   const { prompt } = req.body;
@@ -22,27 +15,33 @@ app.post('/api/chat', async (req, res) => {
     return res.status(400).json({ error: 'Prompt is required' });
   }
 
+  const data = JSON.stringify({
+    "endpoint": "SS-chat",
+    "inputs": {
+      "chat_messages": [
+        {
+          "role": "user",
+          "content": prompt
+        }
+      ]
+    },
+    "env": {
+      "OPENAI_API_KEY": process.env.OPENAI_API_KEY
+    }
+  });
+
+  const config = {
+    method: 'post',
+    url: 'https://api.lmnr.ai/v2/endpoint/run',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.LMNR_API_KEY}`
+    },
+    data: data
+  };
+
   try {
-    console.log('Calling LMNR API with prompt:', prompt);
-
-    const response = await axios.post('https://api.lmnr.ai/v2/endpoint/run', {
-      endpoint: "SS-chat",
-      inputs: {
-        chat_messages: [
-          { role: "user", content: prompt }
-        ]
-      },
-      env: {
-        OPENAI_API_KEY: process.env.OPENAI_API_KEY
-      }
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.LMNR_API_KEY}`
-      }
-    });
-
-    console.log('LMNR API response:', response.data);
+    const response = await axios(config);
     res.json(response.data);
   } catch (error) {
     console.error('Error calling LMNR API:', error.message);
@@ -60,11 +59,5 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// All other GET requests not handled before will return the React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'chat-front/build', 'index.html'));
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// Export the app as a serverless function
+module.exports = app;
