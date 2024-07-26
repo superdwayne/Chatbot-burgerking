@@ -7,8 +7,15 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5001;
 
+// Global CORS configuration
+const corsOptions = {
+  origin: '*', // Adjust as needed to specify allowed origins
+  methods: 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+  allowedHeaders: 'Content-Type, Authorization',
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Serve static files from the React app
