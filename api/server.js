@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -6,6 +7,18 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5001;
+
+app.use((req, res, next) => {
+  if (/(.ico|.js|.css|.jpg|.png|.map)$/i.test(req.path)) {
+      next();
+  } else {
+      res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+      res.header('Expires', '-1');
+      res.header('Pragma', 'no-cache');
+      res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  }
+});
+app.use(express.static(path.join(__dirname, 'build')));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(cors());
@@ -64,7 +77,6 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-app.use(express.static(path.join(__dirname, '../react-app/build')));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
