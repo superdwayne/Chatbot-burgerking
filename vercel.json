@@ -2,19 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
+      "src": "api/server.js",
       "use": "@vercel/node"
     },
     {
-      "src": "chat-front/package.json",
+      "src": "src/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "chat-front/build"
+        "distDir": "build"
       }
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/server.js" },
-    { "src": "/(.*)", "dest": "/chat-front/build/index.html" }
+    { "src": "/api/(.*)", "dest": "/api/server.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
