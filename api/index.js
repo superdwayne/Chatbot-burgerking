@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json());
 
 // API route for chat
-app.post('/api/chat', async (req, res) => {
+app.get('/api/chat', async (req, res) => {
   const { prompt } = req.body;
 
   if (!prompt) {
