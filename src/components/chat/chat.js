@@ -12,6 +12,7 @@ const ChatInterface = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Thinking...');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const loadingWords = ['Thinking...', 'Processing...', 'Generating...', 'Please wait...'];
   let currentWordIndex = 0;
@@ -41,19 +42,19 @@ const ChatInterface = () => {
     setMessages([...messages, newMessage]);
     setInputMessage('');
     setIsLoading(true);
+    setErrorMessage('');
 
     try {
       const response = await axios.post('/api/chat', {
         prompt: inputMessage
       });
 
-      // Format the API response
-      let botResponseText = response.data.outputs.output.value.trim(); // Trim whitespace
-      botResponseText = botResponseText.replace(/\n/g, '<br />'); // Replace newlines with <br>
+      let botResponseText = response.data.outputs?.output?.value?.trim() || 'No response received';
+      botResponseText = botResponseText.replace(/\n/g, '<br />');
 
       const botResponse = {
         id: Date.now() + 1,
-        text: botResponseText, // Use the formatted response text
+        text: botResponseText,
         sender: 'bot',
       };
 
@@ -61,7 +62,7 @@ const ChatInterface = () => {
 
     } catch (error) {
       console.error('Error calling API:', error);
-      // Handle error (e.g., show an error message to the user)
+      setErrorMessage('Sorry, something went wrong. Please try again later.');
     } finally {
       setIsLoading(false);
     }
@@ -90,6 +91,11 @@ const ChatInterface = () => {
           {isLoading && (
             <div className="typing-indicator">
               <p>{loadingText}</p>
+            </div>
+          )}
+          {errorMessage && (
+            <div className="error-message">
+              <p>{errorMessage}</p>
             </div>
           )}
         </ScrollArea>

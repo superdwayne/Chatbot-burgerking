@@ -7,19 +7,19 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5001;
 
-// Serve static files from the React app
-
-app.use(express.static('public'))
-
-app.get('/', (req, res) => {
-  res.sendFile('index.html', {root: path.join(__dirname, 'public')});
-})
-
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from the React app
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.sendFile('index.html', { root: path.join(__dirname, 'public') });
+});
+
 // API route for chat
-app.get('/api/chat', async (req, res) => {
+app.post('/api/chat', async (req, res) => {
   const { prompt } = req.body;
 
   if (!prompt) {
@@ -69,8 +69,6 @@ app.get('/api/chat', async (req, res) => {
     }
   }
 });
-
-
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
