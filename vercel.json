@@ -6,19 +6,15 @@
       "use": "@vercel/node"
     },
     {
-      "src": "chat-front/package.json",
+      "src": "src/package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "build" }
+      "config": {
+        "distDir": "src/build"
+      }
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "api/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "chat-front/build/$1"
-    }
+    { "src": "/api/(.*)", "dest": "/api/server.js" },
+    { "src": "/(.*)", "dest": "/src/build/index.html" }
   ]
 }

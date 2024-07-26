@@ -7,14 +7,10 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5001;
 
-// Serve static files from the 'build' directory
-app.use(express.static(path.join(__dirname, '..', 'src')));
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '..', 'src', 'build')));
 
-// Set CORS for production
-if (process.env.NODE_ENV === 'production') {
-  app.use(cors());
-}
-
+app.use(cors());
 app.use(express.json());
 
 // API route for chat
@@ -69,9 +65,9 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Fallback to index.html for other routes
+// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'src', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'src', 'build', 'index.html'));
 });
 
 app.listen(port, () => {
