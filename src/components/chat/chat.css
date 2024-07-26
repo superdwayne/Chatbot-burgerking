@@ -1,0 +1,166 @@
+/* Base styles for the chat container */
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    padding-top: 50px;   
+    margin: 0 auto;
+    
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styles for the messages area */
+  .messages-area {
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Styles for individual messages */
+  .message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 12px;
+    max-width: 80%;
+    word-break: break-word;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Styles for user messages */
+  .message.user {
+    
+    background-color: #007bff;
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+    position: relative;
+  }
+  
+  /* Styles for bot messages */
+  .message.bot {
+    background-color: #e9ecef;
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+    position: relative;
+  }
+  
+  /* Icons for user and bot messages */
+  .message.user .icon {
+    margin-right: 10px;
+    font-size: 24px;
+  }
+  
+  .message.bot .icon {
+    margin-right: 10px;
+    font-size: 24px;
+  }
+  
+  /* Additional styles for the typing indicator */
+  .typing-indicator {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+  }
+  
+  /* Styles for the input area */
+  .input-area {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+  }
+  
+  /* Styles for input field */
+  .input-field {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 24px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  
+  /* Styles for send button */
+  .send-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .send-button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  .send-button:hover {
+    background-color: #0056b3;
+  }
+  /* Styles for individual messages */
+.message {
+    
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 90%;
+    margin: 0px 0px 20px 0px auto;
+    word-break: break-word;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Styles for user messages */
+  .message.user {
+    background-color: #007bff;
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+    position: relative;
+  }
+  
+  /* Styles for bot messages */
+  .message.bot {
+    background-color: #e9ecef;
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+    position: relative;
+  }
+  
+  /* Additional styles for the message text */
+  .message-text {
+    white-space: pre-line; /* Preserve newlines and spaces */
+  }
+  
+  /* Icons for user and bot messages */
+  .message.user .icon {
+    margin-right: 10px;
+    font-size: 24px;
+  }
+  
+  .message.bot .icon {
+    margin-right: 10px;
+    font-size: 24px;
+  }
+  
+  .typing-indicator {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+    color: #666;
+  }
+  
+  .typing-indicator p {
+    font-size: 16px;
+    margin: 0;
+  }
+  
