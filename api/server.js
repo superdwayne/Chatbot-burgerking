@@ -65,10 +65,11 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Handle React routing, return all requests to React app
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../chat-front/build', 'index.html'));
 });
+
+app.use(express.static(path.join(__dirname, '../chat-front/build')));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
