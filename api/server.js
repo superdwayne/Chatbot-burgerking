@@ -7,21 +7,25 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5001;
 
-// Middleware
-app.use(cors()); // Enable CORS for all environments
+// Serve static files from the 'build' directory
+app.use(express.static(path.join(__dirname, '..', 'src')));
+
+// Set CORS for production
+if (process.env.NODE_ENV === 'production') {
+  app.use(cors());
+}
+
 app.use(express.json());
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'build')));
-
-// API routes
+// API route for chat
 app.post('/api/chat', async (req, res) => {
   const { prompt } = req.body;
+
   if (!prompt) {
     return res.status(400).json({ error: 'Prompt is required' });
   }
 
-  var data = JSON.stringify({
+  const data = JSON.stringify({
     "endpoint": "SS-chat",
     "inputs": {
       "chat_messages": [
@@ -36,7 +40,7 @@ app.post('/api/chat', async (req, res) => {
     }
   });
 
-  var config = {
+  const config = {
     method: 'post',
     url: 'https://api.lmnr.ai/v2/endpoint/run',
     headers: {
@@ -65,11 +69,10 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// Fallback to index.html for other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../chat-front/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'src', 'index.html'));
 });
-
-app.use(express.static(path.join(__dirname, '../chat-front/build')));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
