@@ -43,7 +43,7 @@ const ChatInterface = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`api/chat`, {
+      const response = await axios.post(`/api/chat`, {
         prompt: inputMessage
       });
 

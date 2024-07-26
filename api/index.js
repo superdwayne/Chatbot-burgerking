@@ -8,7 +8,12 @@ const app = express();
 const port = process.env.PORT || 5001;
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, '..', 'src', 'build')));
+
+app.use(express.static('public'))
+
+app.get('/', (req, res) => {
+  res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+})
 
 app.use(cors());
 app.use(express.json());
