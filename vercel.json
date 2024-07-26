@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "chat-front/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "chat-front/build"
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/server.js" },
+    { "src": "/(.*)", "dest": "/chat-front/build/index.html" }
+  ]
+}
