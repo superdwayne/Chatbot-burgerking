@@ -20,11 +20,12 @@ app.post('/api/chat', async (req, res) => {
   try {
     console.log('Calling LMNR APIDPM with prompt:', prompt);
 
+
     const response = await axios.post(
       'https://api.lmnr.ai/v2/endpoint/run',
       {
         env: {
-          OPENAI_API_KEY: "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" // Use environment variable
+          OPENAI_API_KEY: `${process.env.OPENAI_API_KEY}` // Use environment variable
         },
         endpoint: 'SS-chat',
         inputs: {
@@ -37,7 +38,7 @@ app.post('/api/chat', async (req, res) => {
       {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization' : 'Bearer ' + "iexouz4mSqqDVNpZdHsUy1g6QeEioh2vXBITE677x6AAzMARCfHZd8rsWmMap5gm" // Use environment variable
+          'Authorization' : 'Bearer ' + `${process.env.LMNR_API_KEY}` // Use environment variable
         }
       }
     );
