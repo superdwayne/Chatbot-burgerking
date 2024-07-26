@@ -4,7 +4,7 @@ import { Send } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHamburger } from '@fortawesome/free-solid-svg-icons'; 
 import mySvg from './burger-king-9.svg'; // Import SVG file
-import { Card, CardContent, CardFooter, CardHeader, Button, ScrollArea, Input } from '../ui/BasicUIComponents';
+import { Card, CardContent, CardFooter, Button, ScrollArea, Input } from '../ui/BasicUIComponents';
 import './chat.css'; 
 
 const ChatInterface = () => {

@@ -1,12 +1,8 @@
 {
-  "builds": [
+  "rewrites": [
     {
-      "src": "src/build/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "api/**",
-      "use": "@vercel/node"
+      "source": "/(.*)",
+      "destination": "/api"
     }
   ]
 }
