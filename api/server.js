@@ -1,34 +1,22 @@
-'use strict';
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const path = require('path');
 require('dotenv').config();
-
 
 const app = express();
 const port = process.env.PORT || 5001;
 
-app.use((req, res, next) => {
-  if (/(.ico|.js|.css|.jpg|.png|.map)$/i.test(req.path)) {
-      next();
-  } else {
-      res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-      res.header('Expires', '-1');
-      res.header('Pragma', 'no-cache');
-      res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  }
-});
-app.use(express.static(path.join(__dirname, 'build')));
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(cors());
-}
-
+// Middleware
+app.use(cors()); // Enable CORS for all environments
 app.use(express.json());
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'build')));
+
+// API routes
 app.post('/api/chat', async (req, res) => {
   const { prompt } = req.body;
-
   if (!prompt) {
     return res.status(400).json({ error: 'Prompt is required' });
   }
@@ -77,6 +65,10 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
