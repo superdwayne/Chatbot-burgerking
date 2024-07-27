@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# Chatbot-burgerking
 
-This project was Created to test create an RAG chatbot system 
+This project was created to test create an RAG chatbot system.
+
+The project utlises www.lmnr.ai which included a Vector databse system alongside
+and the ability to export the LLM flows created into an end point, once committed.
 
 ## Available Scripts
 
@@ -11,7 +14,3 @@ In the project directory, you can run:
 Runs the app in the development mode. This will also start the express.js server on http://localhost:5001
 
 Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
-
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Chatbot-burgerking
