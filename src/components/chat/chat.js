@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Send } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,13 +15,13 @@ const ChatInterface = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const loadingWords = ['Thinking...', 'Processing...', 'Generating...', 'Please wait...'];
-  let currentWordIndex = 0;
+  const currentWordIndex = useRef(0);
 
   useEffect(() => {
     if (isLoading) {
       const intervalId = setInterval(() => {
-        setLoadingText(loadingWords[currentWordIndex]);
-        currentWordIndex = (currentWordIndex + 1) % loadingWords.length;
+        setLoadingText(loadingWords[currentWordIndex.current]);
+        currentWordIndex.current = (currentWordIndex.current + 1) % loadingWords.length;
       }, 500); // Change word every 500ms
 
       return () => clearInterval(intervalId); // Cleanup interval on component unmount
