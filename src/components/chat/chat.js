@@ -6,9 +6,6 @@ import mySvg from './burger-king-9.svg'; // Import SVG file
 import { Card, CardContent, CardFooter, Button, ScrollArea, Input } from '../ui/BasicUIComponents';
 import './chat.css'; 
 
-// Use an environment variable for the API URL
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
-
 const ChatInterface = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -47,7 +44,7 @@ const ChatInterface = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch(`${API_URL}/api/chat`, {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
