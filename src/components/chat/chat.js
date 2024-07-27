@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import { Send } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHamburger } from '@fortawesome/free-solid-svg-icons'; 
@@ -45,11 +44,20 @@ const ChatInterface = () => {
     setErrorMessage('');
 
     try {
-      const response = await axios.post('/api/chat', {
-        prompt: inputMessage
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: inputMessage }),
       });
 
-      let botResponseText = response.data.outputs?.output?.value?.trim() || 'No response received';
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      let botResponseText = data.outputs?.output?.value?.trim() || 'No response received';
       botResponseText = botResponseText.replace(/\n/g, '<br />');
 
       const botResponse = {
