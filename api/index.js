@@ -3,6 +3,8 @@ const cors = require('cors');
 const axios = require('axios');
 require('dotenv').config();
 
+const port = process.env.PORT || 5001;
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -57,5 +59,10 @@ app.post('/api/chat', async (req, res) => {
     }
   }
 });
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
 
 module.exports = app;
