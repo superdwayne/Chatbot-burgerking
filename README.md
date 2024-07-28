@@ -5,6 +5,10 @@ This project was created to test create an RAG chatbot system.
 The project utlises www.lmnr.ai which included a Vector databse system alongside
 and the ability to export the LLM flows created into an end point, once committed.
 
+## When you pull
+
+When you pull make sure you do an NPM Install
+
 ## Available Scripts
 
 In the project directory, you can run:
