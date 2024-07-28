@@ -14,8 +14,3 @@ In the project directory, you can run:
 Runs the app in the development mode. This will also start the express.js server on http://localhost:5001
 
 Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
-
-
-As this project is stil [WIP]
-
-In order to test https://bbkbot-ten.vercel.app/ you'll need to pull the reop and run the command npm run dev this will fire up the localhost server.

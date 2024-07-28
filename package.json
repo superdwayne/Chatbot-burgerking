@@ -56,5 +56,5 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "concurrently": "^8.2.2"
   },
-  "proxy": "http://localhost:5001"
+  "proxy": "https://ss-back-theta.vercel.app/"
 }

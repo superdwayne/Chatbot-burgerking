@@ -44,8 +44,9 @@ const ChatInterface = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch('https://ss-back-theta.vercel.app/api/chat', {
         method: 'POST',
+        mode:  'cors' ,
         headers: {
           'Content-Type': 'application/json',
         },
